@@ -13,8 +13,8 @@ public class EntregafinalApplication {
 	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(EntregafinalApplication.class, args);
 
-//       Dentist dentist = new Dentist( "Carlos", "Bejarano", "5648789");
-        Dentist dentist = new Dentist(1, "Andres", "Coral", "65498712");
+       Dentist dentist = new Dentist( "Carlos", "Bejarano", "5648789");
+//        Dentist dentist = new Dentist(1, "Andres", "Coral", "65498712");
 		//		Dentist dentist = new Dentist(2,"Juan", "Alvarez", "456789132");
 
 		DentistServiceOld dentistServiceOld = new DentistServiceOld();
