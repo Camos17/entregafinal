@@ -1,13 +1,21 @@
 package com.entregafinalspring.entregafinal.services;
 
+import com.entregafinalspring.entregafinal.dao.IDaoDentist;
+import com.entregafinalspring.entregafinal.dao.impl.DentistDaoImplH2;
 import com.entregafinalspring.entregafinal.models.Dentist;
 
-import java.util.List;
+import java.sql.SQLException;
 
-public interface DentistService {
+public class DentistService {
 
-    Dentist getDentist();
+    private final IDaoDentist iDaoDentist;
 
-    List<Dentist> getDentistsList();
+    public DentistService() {
+        this.iDaoDentist = new DentistDaoImplH2();
+    }
+
+    public void saveDentist(Dentist dentist) throws SQLException {
+        iDaoDentist.saveDentist(dentist);
+    }
 
 }

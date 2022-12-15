@@ -7,11 +7,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
-public class IDaoDentistImplH2 implements IDaoDentist {
+public class DentistDaoImplH2 implements IDaoDentist {
 
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-//    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic;";
+//    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
 
     private final static String DB_URL = "jdbc:h2:tcp://localhost/~/h2-database-dental-clinic;";
 
@@ -19,17 +20,17 @@ public class IDaoDentistImplH2 implements IDaoDentist {
     private final static String DB_PASSWORD = "";
 
 
-    private final static String CREATE_DENTIST = "CREATE TABLE IF NOT EXISTS dentist" +
+    private final static String CREATE_DENTIST = "CREATE TABLE IF NOT EXISTS dentists" +
             " (id int auto_increment primary key, name varchar(255), lastname varchar(255), registration int)";
-    private final static String INSERT_DENTIST_DATA = "INSERT INTO dentist (id, name, lastname, registration) VALUES(?, ?, ?, ?)";
+    private final static String INSERT_DENTIST_DATA = "INSERT INTO dentists (id, name, lastname, registration) VALUES(?, ?, ?, ?)";
 
     @Override
     public void saveDentist(Dentist dentist) throws SQLException {
 
         Connection connection = null;
         DriverManager driverManager = null;
-        PreparedStatement psCreate = null;
-        PreparedStatement psInsert = null;
+        PreparedStatement psCreate;
+        PreparedStatement psInsert;
 
 
         try {
@@ -57,14 +58,26 @@ public class IDaoDentistImplH2 implements IDaoDentist {
         } finally {
             connection.close();
         }
-
-
-
     }
 
-    @Override
-    public Dentist getDentist(int id) {
-        return null;
-    }
+//    @Override
+//    public Dentist searchDentist(int id) {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<Dentist> searchAll() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Dentist updateDentist(Dentist dentist) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void deleteDentist(Integer id) {
+//
+//    }
 
 }
