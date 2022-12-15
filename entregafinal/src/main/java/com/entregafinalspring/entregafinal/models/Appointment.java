@@ -1,52 +1,34 @@
 package com.entregafinalspring.entregafinal.models;
 
 import java.time.LocalTime;
+import java.util.Date;
 
 public class Appointment {
 
     private int id;
-    private String date;
+
+    private Date date;
+
     private LocalTime hour;
+
+    private String description;
 
     public Appointment() {
     }
 
-    public Appointment(int id, String date, LocalTime hour) {
-        this.id = id;
+    public Appointment(Date date, LocalTime hour, String description) {
         this.date = date;
         this.hour = hour;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public LocalTime getHour() {
-        return hour;
-    }
-
-    public void setHour(LocalTime hour) {
-        this.hour = hour;
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return "Turno{" +
+        return "Appointment{" +
                 "id=" + id +
-                ", fecha='" + date + '\'' +
-                ", hora=" + hour +
+                ", date=" + date +
+                ", hour=" + hour +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

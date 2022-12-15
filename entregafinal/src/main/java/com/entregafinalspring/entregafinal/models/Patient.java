@@ -1,5 +1,7 @@
 package com.entregafinalspring.entregafinal.models;
 
+import java.util.Date;
+
 public class Patient {
 
     private int id;
@@ -7,13 +9,21 @@ public class Patient {
     private String lastname;
     private String address;
     private String dni;
-    private String registrationDate;
+    private Date registrationDate;
 
     public Patient() {
     }
 
-    public Patient(int id, String name, String lastname, String address, String dni, String registrationDate) {
+    public Patient(int id, String name, String lastname, String address, String dni, Date registrationDate) {
         this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.address = address;
+        this.dni = dni;
+        this.registrationDate = registrationDate;
+    }
+
+    public Patient(String name, String lastname, String address, String dni, Date registrationDate) {
         this.name = name;
         this.lastname = lastname;
         this.address = address;
@@ -61,11 +71,11 @@ public class Patient {
         this.dni = dni;
     }
 
-    public String getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(String registrationDate) {
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
