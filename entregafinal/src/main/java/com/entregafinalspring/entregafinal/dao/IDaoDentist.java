@@ -9,12 +9,12 @@ public interface IDaoDentist {
 
     void saveDentist(Dentist dentist) throws SQLException;
 
-//    Dentist searchDentist(int id);
-//
-//    List<Dentist> searchAll();
-//
-//    Dentist updateDentist(Dentist dentist);
-//
-//    void deleteDentist(Integer id);
+    Dentist searchDentist(int id);
+
+    List<Dentist> searchAllDentist();
+
+    Dentist updateDentist(Dentist dentist);
+
+    void deleteDentist(Integer id);
 
 }
