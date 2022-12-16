@@ -31,6 +31,7 @@ public class EntregafinalApplication {
 //		dentistService.saveDentist(dentist2);
 //		dentistService.saveDentist(dentist4);
 
+
 		// BUCAR UN ODONTOLOGO
 //		System.out.println(dentistService.searchDentist(0));
 
@@ -67,6 +68,7 @@ public class EntregafinalApplication {
 
 		// BORRAR PACIENTE
 //		patientService.deletePatient(7);
+
 
 
 	}
