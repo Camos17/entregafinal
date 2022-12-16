@@ -75,6 +75,7 @@ public class DentistDaoImplH2 implements IDaoDentist {
 
     @Override
     public Dentist searchDentist(int id) {
+        logger.debug("buscando el odontologo con id= " + id);
         Connection connection = null;
         PreparedStatement preparedStatement;
         Dentist dentist = null;
