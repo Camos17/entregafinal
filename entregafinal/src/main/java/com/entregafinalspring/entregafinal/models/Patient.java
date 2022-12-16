@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Patient {
 
-    private int id;
+    private Integer id;
     private String name;
     private String lastname;
     private String address;
