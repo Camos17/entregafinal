@@ -1,16 +1,17 @@
 package com.entregafinalspring.entregafinal.dao.impl;
 
 import com.entregafinalspring.entregafinal.dao.IDaoDentist;
-import com.entregafinalspring.entregafinal.models.Dentist;
+import com.entregafinalspring.entregafinal.entity.Dentist;
 import org.apache.log4j.Logger;
 
-import javax.xml.transform.Result;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DentistDaoImplH2 implements IDaoDentist {
+public class
+
+DentistDaoImplH2 implements IDaoDentist {
 
     final static Logger logger = Logger.getLogger(DentistDaoImplH2.class);
 

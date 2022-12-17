@@ -1,8 +1,7 @@
 package com.entregafinalspring.entregafinal.dao.impl;
 
 import com.entregafinalspring.entregafinal.dao.IDaoPatient;
-import com.entregafinalspring.entregafinal.dao.configuracion.ConfigurationJDBC;
-import com.entregafinalspring.entregafinal.models.Patient;
+import com.entregafinalspring.entregafinal.entity.Patient;
 import com.entregafinalspring.entregafinal.util.Util;
 import org.apache.log4j.Logger;
 
