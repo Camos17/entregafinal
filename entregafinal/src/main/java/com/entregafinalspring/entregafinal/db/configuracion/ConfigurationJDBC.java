@@ -1,4 +1,4 @@
-package com.entregafinalspring.entregafinal.dao.configuracion;
+package com.entregafinalspring.entregafinal.db.configuracion;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

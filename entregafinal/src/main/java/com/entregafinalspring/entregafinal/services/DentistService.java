@@ -2,7 +2,7 @@ package com.entregafinalspring.entregafinal.services;
 
 import com.entregafinalspring.entregafinal.dao.IDaoDentist;
 import com.entregafinalspring.entregafinal.dao.impl.DentistDaoImplH2;
-import com.entregafinalspring.entregafinal.models.Dentist;
+import com.entregafinalspring.entregafinal.entity.Dentist;
 
 import java.sql.SQLException;
 import java.util.List;

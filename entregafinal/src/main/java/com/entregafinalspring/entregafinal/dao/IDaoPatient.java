@@ -1,6 +1,6 @@
 package com.entregafinalspring.entregafinal.dao;
 
-import com.entregafinalspring.entregafinal.models.Patient;
+import com.entregafinalspring.entregafinal.entity.Patient;
 
 import java.sql.SQLException;
 import java.util.List;
