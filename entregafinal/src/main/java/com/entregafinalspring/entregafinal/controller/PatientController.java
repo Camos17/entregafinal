@@ -1,7 +1,7 @@
 package com.entregafinalspring.entregafinal.controller;
 
 import com.entregafinalspring.entregafinal.entity.Patient;
-import com.entregafinalspring.entregafinal.servicesNew.PatientService;
+import com.entregafinalspring.entregafinal.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

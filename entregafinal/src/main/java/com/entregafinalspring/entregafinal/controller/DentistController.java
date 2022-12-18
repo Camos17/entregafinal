@@ -1,8 +1,10 @@
 package com.entregafinalspring.entregafinal.controller;
 
+import com.entregafinalspring.entregafinal.dto.DentistDTO;
 import com.entregafinalspring.entregafinal.entity.Dentist;
-import com.entregafinalspring.entregafinal.servicesNew.DentistService;
+import com.entregafinalspring.entregafinal.services.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -28,8 +30,10 @@ public class DentistController {
 
     // GET MAPPING
     @GetMapping()
-    public Dentist searchDentistHandler(@RequestParam int id) {
-        return dentistService.searchDentist(id);
+    public ResponseEntity<DentistDTO> searchDentistHandler(@RequestParam int id) {
+        // .orElse de libreria Optional
+        DentistDTO dentistDTO = dentistService.searchDentist(id).orElse(null);
+        return ResponseEntity.ok(dentistDTO);
     }
 
     // GET ALL
