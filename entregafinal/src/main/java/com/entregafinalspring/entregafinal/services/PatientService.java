@@ -1,19 +1,21 @@
 package com.entregafinalspring.entregafinal.services;
 
+import com.entregafinalspring.entregafinal.dto.PatientDTO;
 import com.entregafinalspring.entregafinal.entity.Patient;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public interface PatientService {
 
-    Patient savePatient(Patient patient) throws SQLException;
+    Optional<PatientDTO> savePatient(Patient patient) throws SQLException;
 
-    Patient searchPatient(Integer id) throws SQLException;
+    Optional<PatientDTO> searchPatient(Integer id) throws SQLException;
 
-    List<Patient> searchAllPatients();
+    List<Optional<PatientDTO>> searchAllPatients();
 
-    Patient updatePatient(Patient patient);
+    Optional<PatientDTO> updatePatient(Patient patient);
 
     void deletePatient(Integer id);
 

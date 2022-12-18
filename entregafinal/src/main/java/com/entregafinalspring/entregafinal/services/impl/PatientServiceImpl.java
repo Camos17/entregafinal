@@ -1,8 +1,10 @@
 package com.entregafinalspring.entregafinal.services.impl;
 
+import com.entregafinalspring.entregafinal.dto.PatientDTO;
 import com.entregafinalspring.entregafinal.entity.Patient;
 import com.entregafinalspring.entregafinal.services.PatientService;
 import com.entregafinalspring.entregafinal.util.Util;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientServiceImpl implements PatientService {
@@ -43,21 +46,17 @@ public class PatientServiceImpl implements PatientService {
 
     // TODO: Review savePatient response after save patient from Postman
     @Override
-    public Patient savePatient(Patient patient) throws SQLException {
+    public Optional<PatientDTO> savePatient(Patient patient) throws SQLException {
         System.out.println("Registrando paciente (new service): " + patient.toString());
         logger.debug("Guardado de un nuevo paciente.!");
 
         Connection connection = null;
-        PreparedStatement psCreate = null;
         PreparedStatement preparedStatement = null;
+        Optional<PatientDTO> patientDTO = null;
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-            // Ya no es necesaria al ejecutar desde la conexión DB_URL con create.sql
-//            psCreate = connection.prepareStatement(CREATE_PATIENTS);
-//            psCreate.execute();
 
             connection.setAutoCommit(false);
 
@@ -75,21 +74,24 @@ public class PatientServiceImpl implements PatientService {
 
             preparedStatement.close();
 
+            ObjectMapper objectMapper =  new ObjectMapper();
+            patientDTO = Optional.of(objectMapper.convertValue(patient, PatientDTO.class));
+            logger.debug("!Nuevo paciente guardado!");
+
         } catch (SQLException | ClassNotFoundException | NoSuchMethodException | InstantiationException |
                  IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
-        } finally {
-            connection.close();
         }
-        return patient;
+        return patientDTO;
     }
 
     @Override
-    public Patient searchPatient(Integer id) throws SQLException {
+    public Optional<PatientDTO> searchPatient(Integer id) throws SQLException {
         logger.debug("Paciente encontrado con id= " + id);
         Connection connection = null;
         PreparedStatement ps = null;
         Patient patient = null;
+        Optional<PatientDTO> patientDTO = null;
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -108,7 +110,11 @@ public class PatientServiceImpl implements PatientService {
                 String patientDni = result.getString("dni");
                 Date patientRD = result.getDate("registrationDate");
 
+                ObjectMapper objectMapper = new ObjectMapper();
+
                 patient = new Patient(patientId, patientName, patientLastname, patientAddress, patientDni, patientRD);
+
+                patientDTO = Optional.of(objectMapper.convertValue(patient, PatientDTO.class));
             }
 
             ps.close();
@@ -119,15 +125,17 @@ public class PatientServiceImpl implements PatientService {
         } finally {
             connection.close();
         }
-        return patient;
+        return patientDTO;
     }
 
     @Override
-    public List<Patient> searchAllPatients() {
+    public List<Optional<PatientDTO>> searchAllPatients() {
         logger.debug("Listado de pacientes");
         Connection connection = null;
         PreparedStatement ps = null;
         List<Patient> patients = new ArrayList<>();
+        Optional<PatientDTO> patientDTO = null;
+        List<Optional<PatientDTO>> patientDTOList = new ArrayList<>();
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -144,9 +152,12 @@ public class PatientServiceImpl implements PatientService {
                 String patientDni = result.getString("dni");
                 java.sql.Date patientRD = result.getDate("registrationDate");
 
+                ObjectMapper objectMapper = new ObjectMapper();
+
                 Patient patient = new Patient(patientId, patientName, patientLastname, patientAddress, patientDni, patientRD);
                 patients.add(patient);
-
+                patientDTO = Optional.of(objectMapper.convertValue(patient, PatientDTO.class));
+                patientDTOList.add(patientDTO);
             }
             ps.close();
 
@@ -154,14 +165,15 @@ public class PatientServiceImpl implements PatientService {
                  ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-        return patients;
+        return patientDTOList;
     }
 
     @Override
-    public Patient updatePatient(Patient patient) {
+    public Optional<PatientDTO> updatePatient(Patient patient) {
         logger.debug("Actualizando paciente");
         Connection connection = null;
         PreparedStatement ps = null;
+        Optional<PatientDTO> patientDTO = null;
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -177,12 +189,17 @@ public class PatientServiceImpl implements PatientService {
 
             ps.executeUpdate();
             ps.close();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            patientDTO = Optional.of(objectMapper.convertValue(patient, PatientDTO.class));
+
+
             logger.info("Paciente actualizado");
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException |
                  ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-        return patient;
+        return patientDTO;
     }
 
     @Override
