@@ -19,7 +19,9 @@ public class PatientServiceImpl implements PatientService {
 
     // CONSTANTES PARA CONEXION BD
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
+//    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
+
+    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic;INIT=RUNSCRIPT FROM 'classpath:create.sql'";
 
 //    private final static String DB_URL = "jdbc:h2:tcp://localhost/~/h2-database-dental-clinic;";
 
@@ -53,8 +55,9 @@ public class PatientServiceImpl implements PatientService {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            psCreate = connection.prepareStatement(CREATE_PATIENTS);
-            psCreate.execute();
+            // Ya no es necesaria al ejecutar desde la conexión DB_URL con create.sql
+//            psCreate = connection.prepareStatement(CREATE_PATIENTS);
+//            psCreate.execute();
 
             connection.setAutoCommit(false);
 
