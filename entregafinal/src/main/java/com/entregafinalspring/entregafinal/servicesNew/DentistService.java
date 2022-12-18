@@ -1,13 +1,13 @@
-package com.entregafinalspring.entregafinal.dao;
+package com.entregafinalspring.entregafinal.servicesNew;
 
 import com.entregafinalspring.entregafinal.entity.Dentist;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IDaoDentist {
+public interface DentistService {
 
-    void saveDentist(Dentist dentist) throws SQLException;
+    Dentist createDentist(Dentist dentist) throws SQLException;
 
     Dentist searchDentist(int id);
 

@@ -1,13 +1,10 @@
 package com.entregafinalspring.entregafinal;
 
-import com.entregafinalspring.entregafinal.models.Dentist;
-import com.entregafinalspring.entregafinal.models.Patient;
 import com.entregafinalspring.entregafinal.services.DentistService;
 import com.entregafinalspring.entregafinal.services.PatientService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 @SpringBootApplication
@@ -16,14 +13,14 @@ public class EntregafinalApplication {
 	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(EntregafinalApplication.class, args);
 
-		DentistService dentistService = new DentistService();
+//		DentistService dentistService = new DentistService();
 
 		//// ODONTOLOGO
 		// GUARDAR UN ODONTOLOGO
 //       Dentist dentist = new Dentist( "Carlos", "Bejarano", "5648789");
 //		        Dentist dentist = new Dentist(1, "Andres", "Coral", "65498712");
-//				Dentist dentist2 = new Dentist(2,"Juan", "Alvarez", "456789132");
-//				Dentist dentist3 = new Dentist(3, "Alberto", "Barranca", "235698741");
+//				Dentist dentist2 = new Dentist(2,"Juan", "Alvarez", "235698741");
+//				Dentist dentist3 = new Dentist(3, "Alberto", "Barranca", "456789132");
 //		Dentist dentist4 = new Dentist(4, "Juliana", "Vanegas", "56478921");
 
 
@@ -47,7 +44,7 @@ public class EntregafinalApplication {
 
 
 		//// PACIENTE
-		PatientService patientService = new PatientService();
+//		PatientService patientService = new PatientService();
 //		Patient patient = new Patient(1, "Manuela", "Ramirez", "calle 345 # 76-12", "3216545987", new Date(2022-12-11));
 //		Patient patient1 = new Patient(2, "Alvaro", "Castellanos", "calle 65 # 76D-12", "6547891", new java.sql.Date(2022-11-5));
 

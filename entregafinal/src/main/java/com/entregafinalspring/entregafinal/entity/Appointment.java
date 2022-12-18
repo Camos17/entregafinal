@@ -1,4 +1,4 @@
-package com.entregafinalspring.entregafinal.models;
+package com.entregafinalspring.entregafinal.entity;
 
 import java.time.LocalTime;
 import java.util.Date;

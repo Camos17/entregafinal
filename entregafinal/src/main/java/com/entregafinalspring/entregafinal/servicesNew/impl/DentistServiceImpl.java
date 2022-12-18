@@ -1,19 +1,20 @@
-package com.entregafinalspring.entregafinal.dao.impl;
+package com.entregafinalspring.entregafinal.servicesNew.impl;
 
-import com.entregafinalspring.entregafinal.dao.IDaoDentist;
+import com.entregafinalspring.entregafinal.dao.impl.DentistDaoImplH2;
 import com.entregafinalspring.entregafinal.entity.Dentist;
+import com.entregafinalspring.entregafinal.servicesNew.DentistService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class
+@Service
+public class DentistServiceImpl implements DentistService {
 
-DentistDaoImplH2 implements IDaoDentist {
-
-    final static Logger logger = Logger.getLogger(DentistDaoImplH2.class);
+    final static Logger logger = Logger.getLogger(DentistServiceImpl.class);
 
     // CONSTANTES PARA CONEXION BD
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
@@ -28,7 +29,7 @@ DentistDaoImplH2 implements IDaoDentist {
     // CONSTANTES PARA MANIPULACION BD
     private final static String CREATE_DENTIST = "CREATE TABLE IF NOT EXISTS dentists" +
             " (id int auto_increment primary key, name varchar(255), lastname varchar(255), registration int)";
-    private final static String INSERT_DENTIST_DATA = "INSERT INTO DENTISTS (id, name, lastname, registration) VALUES(?, ?, ?, ?)";
+    private final static String INSERT_DENTIST_DATA = "INSERT INTO DENTISTS (name, lastname, registration) VALUES(?, ?, ?)";
     private final static String SELECT_DENTIST_DATA = "SELECT id, name, lastname, registration FROM DENTISTS WHERE id = ?";
 
     private final static String SELECT_ALL_DENTISTS = "SELECT * FROM DENTISTS";
@@ -38,8 +39,8 @@ DentistDaoImplH2 implements IDaoDentist {
     private final static String DELETE_DENTIST = "DELETE FROM DENTISTS WHERE id = ?";
 
     @Override
-    public void saveDentist(Dentist dentist) throws SQLException {
-        logger.debug("Guardando un nuevo odontologo");
+    public Dentist createDentist(Dentist dentist) throws SQLException {
+        logger.debug("Guardando un nuevo odontologo -1");
         Connection connection = null;
         DriverManager driverManager = null;
         PreparedStatement psCreate;
@@ -56,10 +57,10 @@ DentistDaoImplH2 implements IDaoDentist {
             connection.setAutoCommit(false);
 
             psInsert = connection.prepareStatement(INSERT_DENTIST_DATA);
-            psInsert.setInt(1, dentist.getId());
-            psInsert.setString(2, dentist.getName());
-            psInsert.setString(3, dentist.getLastname());
-            psInsert.setString(4, dentist.getRegistration());
+//            psInsert.setInt(1, dentist.getId()); // Este ya no debe ir porque el id del insert esta auto incremental
+            psInsert.setString(1, dentist.getName());
+            psInsert.setString(2, dentist.getLastname());
+            psInsert.setString(3, dentist.getRegistration());
 
             psInsert.executeUpdate();
             connection.commit();
@@ -72,6 +73,7 @@ DentistDaoImplH2 implements IDaoDentist {
         } finally {
             connection.close();
         }
+        return dentist;
     }
 
     @Override
@@ -176,11 +178,12 @@ DentistDaoImplH2 implements IDaoDentist {
 
             ps.executeUpdate();
             ps.close();
+            logger.debug("Odontologo con id" + id  + " fue elimindao");
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException |
                  ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
+
 
 }

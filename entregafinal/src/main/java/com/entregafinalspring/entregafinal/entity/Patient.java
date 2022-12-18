@@ -1,4 +1,4 @@
-package com.entregafinalspring.entregafinal.models;
+package com.entregafinalspring.entregafinal.entity;
 
 import java.util.Date;
 
@@ -14,6 +14,14 @@ public class Patient {
     public Patient() {
     }
 
+    public Patient(String name, String lastname, String address, String dni, Date registrationDate) {
+        this.name = name;
+        this.lastname = lastname;
+        this.address = address;
+        this.dni = dni;
+        this.registrationDate = registrationDate;
+    }
+
     public Patient(int id, String name, String lastname, String address, String dni, Date registrationDate) {
         this.id = id;
         this.name = name;
@@ -23,13 +31,7 @@ public class Patient {
         this.registrationDate = registrationDate;
     }
 
-    public Patient(String name, String lastname, String address, String dni, Date registrationDate) {
-        this.name = name;
-        this.lastname = lastname;
-        this.address = address;
-        this.dni = dni;
-        this.registrationDate = registrationDate;
-    }
+
 
     public int getId() {
         return id;
