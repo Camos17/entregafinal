@@ -18,7 +18,9 @@ public class DentistServiceImpl implements DentistService {
 
     // CONSTANTES PARA CONEXION BD
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
+//    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
+
+    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic;INIT=RUNSCRIPT FROM 'classpath:create.sql'";
 
 //    private final static String DB_URL = "jdbc:h2:tcp://localhost/~/h2-database-dental-clinic;";
 
@@ -27,8 +29,8 @@ public class DentistServiceImpl implements DentistService {
 
 
     // CONSTANTES PARA MANIPULACION BD
-    private final static String CREATE_DENTIST = "CREATE TABLE IF NOT EXISTS dentists" +
-            " (id int auto_increment primary key, name varchar(255), lastname varchar(255), registration int)";
+//    private final static String CREATE_DENTIST = "CREATE TABLE IF NOT EXISTS dentists" +
+//            " (id int auto_increment primary key, name varchar(255), lastname varchar(255), registration int)";
     private final static String INSERT_DENTIST_DATA = "INSERT INTO DENTISTS (name, lastname, registration) VALUES(?, ?, ?)";
     private final static String SELECT_DENTIST_DATA = "SELECT id, name, lastname, registration FROM DENTISTS WHERE id = ?";
 
@@ -51,8 +53,10 @@ public class DentistServiceImpl implements DentistService {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
             connection = driverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            psCreate = connection.prepareStatement(CREATE_DENTIST);
-            psCreate.execute();
+            // Ya no es necesaria al ejecutar desde la conexión DB_URL con create.sql
+//            psCreate = connection.prepareStatement(CREATE_DENTIST);
+//            psCreate.execute();
+
 
             connection.setAutoCommit(false);
 
