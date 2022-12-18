@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface DentistService {
 
-    void createDentist(Dentist dentist) throws SQLException;
+    Dentist createDentist(Dentist dentist) throws SQLException;
 
-//    Dentist searchDentist(int id);
-//
-//    List<Dentist> searchAllDentist();
-//
-//    Dentist updateDentist(Dentist dentist);
-//
-//    void deleteDentist(Integer id);
+    Dentist searchDentist(int id);
+
+    List<Dentist> searchAllDentist();
+
+    Dentist updateDentist(Dentist dentist);
+
+    void deleteDentist(Integer id);
 
 }

@@ -19,8 +19,8 @@ public class EntregafinalApplication {
 		// GUARDAR UN ODONTOLOGO
 //       Dentist dentist = new Dentist( "Carlos", "Bejarano", "5648789");
 //		        Dentist dentist = new Dentist(1, "Andres", "Coral", "65498712");
-//				Dentist dentist2 = new Dentist(2,"Juan", "Alvarez", "456789132");
-//				Dentist dentist3 = new Dentist(3, "Alberto", "Barranca", "235698741");
+//				Dentist dentist2 = new Dentist(2,"Juan", "Alvarez", "235698741");
+//				Dentist dentist3 = new Dentist(3, "Alberto", "Barranca", "456789132");
 //		Dentist dentist4 = new Dentist(4, "Juliana", "Vanegas", "56478921");
 
 
