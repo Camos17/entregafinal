@@ -1,37 +1,20 @@
 package com.entregafinalspring.entregafinal.services;
 
-import com.entregafinalspring.entregafinal.dao.IDaoPatient;
-import com.entregafinalspring.entregafinal.dao.impl.PatientDaoImplH2;
 import com.entregafinalspring.entregafinal.entity.Patient;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class PatientService {
+public interface PatientService {
 
-    private final IDaoPatient iDaoPatient;
+    Patient savePatient(Patient patient) throws SQLException;
 
-    public PatientService() {
-        this.iDaoPatient = new PatientDaoImplH2();
-    }
+    Patient searchPatient(Integer id) throws SQLException;
 
-    public void savePatient(Patient patient) {
-        iDaoPatient.savePatient(patient);
-    }
+    List<Patient> searchAllPatients();
 
-    public Patient searchPatient(Integer id) throws SQLException {
-        return iDaoPatient.searchPatient(id);
-    }
+    Patient updatePatient(Patient patient);
 
-    public List<Patient> searchAllPatients() {
-        return iDaoPatient.searchAllPatients();
-    }
+    void deletePatient(Integer id);
 
-    public Patient updatePatient(Patient patient) {
-        return iDaoPatient.updatePatient(patient);
-    }
-
-    public void deletePatient (int id) {
-        iDaoPatient.deletePatient(id);
-    }
 }

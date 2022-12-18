@@ -1,9 +1,10 @@
-package com.entregafinalspring.entregafinal.dao.impl;
+package com.entregafinalspring.entregafinal.services.impl;
 
-import com.entregafinalspring.entregafinal.dao.IDaoPatient;
 import com.entregafinalspring.entregafinal.entity.Patient;
+import com.entregafinalspring.entregafinal.services.PatientService;
 import com.entregafinalspring.entregafinal.util.Util;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -11,13 +12,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PatientDaoImplH2 implements IDaoPatient {
+@Service
+public class PatientServiceImpl implements PatientService {
 
-    final static Logger logger = Logger.getLogger(PatientDaoImplH2.class);
+    final static Logger logger = Logger.getLogger(PatientServiceImpl.class);
 
     // CONSTANTES PARA CONEXION BD
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
+//    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
+
+    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic;INIT=RUNSCRIPT FROM 'classpath:create.sql'";
 
 //    private final static String DB_URL = "jdbc:h2:tcp://localhost/~/h2-database-dental-clinic;";
 
@@ -37,11 +41,11 @@ public class PatientDaoImplH2 implements IDaoPatient {
 
     private final static String DELETE_PATIENT = "DELETE FROM patients WHERE id  = ?";
 
-
+    // TODO: Review savePatient response after save patient from Postman
     @Override
-    public void savePatient(Patient patient) {
-        System.out.println("Registrando paciente: " + patient.toString());
-        logger.debug("Guardado de un nuevo paciente -1.!");
+    public Patient savePatient(Patient patient) throws SQLException {
+        System.out.println("Registrando paciente (new service): " + patient.toString());
+        logger.debug("Guardado de un nuevo paciente.!");
 
         Connection connection = null;
         PreparedStatement psCreate = null;
@@ -51,8 +55,9 @@ public class PatientDaoImplH2 implements IDaoPatient {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            psCreate = connection.prepareStatement(CREATE_PATIENTS);
-            psCreate.execute();
+            // Ya no es necesaria al ejecutar desde la conexión DB_URL con create.sql
+//            psCreate = connection.prepareStatement(CREATE_PATIENTS);
+//            psCreate.execute();
 
             connection.setAutoCommit(false);
 
@@ -73,7 +78,10 @@ public class PatientDaoImplH2 implements IDaoPatient {
         } catch (SQLException | ClassNotFoundException | NoSuchMethodException | InstantiationException |
                  IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
+        } finally {
+            connection.close();
         }
+        return patient;
     }
 
     @Override

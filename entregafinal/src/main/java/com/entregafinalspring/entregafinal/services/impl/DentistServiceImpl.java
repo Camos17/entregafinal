@@ -1,8 +1,9 @@
-package com.entregafinalspring.entregafinal.servicesNew.impl;
+package com.entregafinalspring.entregafinal.services.impl;
 
-import com.entregafinalspring.entregafinal.dao.impl.DentistDaoImplH2;
+import com.entregafinalspring.entregafinal.dto.DentistDTO;
 import com.entregafinalspring.entregafinal.entity.Dentist;
-import com.entregafinalspring.entregafinal.servicesNew.DentistService;
+import com.entregafinalspring.entregafinal.services.DentistService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DentistServiceImpl implements DentistService {
@@ -79,11 +81,12 @@ public class DentistServiceImpl implements DentistService {
     }
 
     @Override
-    public Dentist searchDentist(int id) {
+    public Optional<DentistDTO> searchDentist(int id) {
         logger.debug("buscando el odontologo con id= " + id);
         Connection connection = null;
         PreparedStatement preparedStatement;
         Dentist dentist = null;
+        Optional<DentistDTO> dentistDTO = null;
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -100,7 +103,15 @@ public class DentistServiceImpl implements DentistService {
                 String dentistLastname = rs.getString("lastname");
                 String registration = rs.getString("registration");
 
+                // El objeto con el metodo para mapear
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                // El objeto (entidad) que necesito mapear
                 dentist = new Dentist(dentistId, dentistName, dentistLastname, registration);
+
+                // El objeto contenedor que va a tener el resultado del mapeo y le mapeo ya realizado
+                dentistDTO = Optional.of(objectMapper.convertValue(dentist, DentistDTO.class));
+
             }
             preparedStatement.close();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException |
@@ -108,7 +119,7 @@ public class DentistServiceImpl implements DentistService {
             throw new RuntimeException(e);
         }
 
-        return dentist;
+        return dentistDTO;
     }
 
     @Override

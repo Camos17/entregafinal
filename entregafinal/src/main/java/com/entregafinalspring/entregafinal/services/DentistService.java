@@ -1,38 +1,22 @@
 package com.entregafinalspring.entregafinal.services;
 
-import com.entregafinalspring.entregafinal.dao.IDaoDentist;
-import com.entregafinalspring.entregafinal.dao.impl.DentistDaoImplH2;
+import com.entregafinalspring.entregafinal.dto.DentistDTO;
 import com.entregafinalspring.entregafinal.entity.Dentist;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
-public class DentistService {
+public interface DentistService {
 
-    private final IDaoDentist iDaoDentist;
+    Dentist createDentist(Dentist dentist) throws SQLException;
 
-    public DentistService() {
-        this.iDaoDentist = new DentistDaoImplH2();
-    }
+    Optional<DentistDTO> searchDentist(int id);
 
-    public void saveDentist(Dentist dentist) throws SQLException {
-        iDaoDentist.saveDentist(dentist);
-    }
+    List<Dentist> searchAllDentist();
 
-    public Dentist searchDentist(Integer id) {
-       return iDaoDentist.searchDentist(id);
-    }
+    Dentist updateDentist(Dentist dentist);
 
-    public List<Dentist> searchAllDentists() {
-        return iDaoDentist.searchAllDentist();
-    }
-
-    public Dentist updateDentist(Dentist dentist) {
-        return iDaoDentist.updateDentist(dentist);
-    }
-
-    public void deleteDentist(Integer id) {
-        iDaoDentist.deleteDentist(id);
-    }
+    void deleteDentist(Integer id);
 
 }
