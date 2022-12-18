@@ -26,8 +26,8 @@ public class PatientController {
     }
 
     // GET MAPPING
-    @GetMapping("/{id}")
-    public Patient searchPatientHandler(@PathVariable Integer id) throws SQLException {
+    @GetMapping()
+    public Patient searchPatientHandler(@RequestParam Integer id) throws SQLException {
         return patientService.searchPatient(id);
     }
 

@@ -27,8 +27,8 @@ public class DentistController {
     }
 
     // GET MAPPING
-    @GetMapping("/{id}")
-    public Dentist searchDentistHandler(@PathVariable int id) {
+    @GetMapping()
+    public Dentist searchDentistHandler(@RequestParam int id) {
         return dentistService.searchDentist(id);
     }
 
