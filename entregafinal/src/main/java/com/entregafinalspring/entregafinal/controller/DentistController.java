@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/dentist") // Base URL
@@ -24,8 +25,9 @@ public class DentistController {
     // POST MAPPING
     //@RequestMapping(value = "/crear", method = RequestMethod.POST) // Esto seria sin usar Spring
     @PostMapping() // Es una abreviacion de Spring
-    public Dentist createDentistHandler(@RequestBody Dentist dentist) throws SQLException {
-        return dentistService.createDentist(dentist);
+    public ResponseEntity<DentistDTO> createDentistHandler(@RequestBody Dentist dentist) throws SQLException {
+        DentistDTO dentistDTO = dentistService.createDentist(dentist).orElse(null);
+        return ResponseEntity.ok(dentistDTO);
     }
 
     // GET MAPPING
@@ -38,14 +40,16 @@ public class DentistController {
 
     // GET ALL
     @GetMapping("/list")
-    public List<Dentist> searchAllDentistHandler() {
-        return dentistService.searchAllDentist();
+    public ResponseEntity<List<Optional<DentistDTO>>> searchAllDentistHandler() {
+        List<Optional<DentistDTO>> dentistDTOList = dentistService.searchAllDentist();
+        return ResponseEntity.ok(dentistDTOList);
     }
 
     // PUT MAPPING
     @PutMapping()
-    public Dentist updateDentistHandler(@RequestBody Dentist dentist) {
-        return dentistService.updateDentist(dentist);
+    public ResponseEntity<DentistDTO> updateDentistHandler(@RequestBody Dentist dentist) {
+        DentistDTO dentistDTO = dentistService.updateDentist(dentist).orElse(null);
+        return ResponseEntity.ok(dentistDTO);
     }
 
     // DELETE MAPPING
