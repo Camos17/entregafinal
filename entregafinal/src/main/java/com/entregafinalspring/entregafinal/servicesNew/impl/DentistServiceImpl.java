@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class DentistServiceImpl implements DentistService {
 
@@ -29,7 +30,9 @@ public class DentistServiceImpl implements DentistService {
     // CONSTANTES PARA MANIPULACION BD
     private final static String CREATE_DENTIST = "CREATE TABLE IF NOT EXISTS dentists" +
             " (id int auto_increment primary key, name varchar(255), lastname varchar(255), registration int)";
+
     private final static String INSERT_DENTIST_DATA = "INSERT INTO DENTISTS (name, lastname, registration) VALUES(?, ?, ?)";
+
     private final static String SELECT_DENTIST_DATA = "SELECT id, name, lastname, registration FROM DENTISTS WHERE id = ?";
 
     private final static String SELECT_ALL_DENTISTS = "SELECT * FROM DENTISTS";
@@ -184,6 +187,4 @@ public class DentistServiceImpl implements DentistService {
             throw new RuntimeException(e);
         }
     }
-
-
 }
