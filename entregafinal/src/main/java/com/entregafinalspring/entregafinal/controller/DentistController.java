@@ -28,25 +28,25 @@ public class DentistController {
 
     // GET MAPPING
     @GetMapping("/{id}")
-    public Dentist searchDentist(@PathVariable int id) {
+    public Dentist searchDentistHandler(@PathVariable int id) {
         return dentistService.searchDentist(id);
     }
 
     // GET ALL
     @GetMapping("/list")
-    public List<Dentist> searchAllDentist() {
+    public List<Dentist> searchAllDentistHandler() {
         return dentistService.searchAllDentist();
     }
 
     // PUT MAPPING
     @PutMapping()
-    public Dentist updateDentist(@RequestBody Dentist dentist) {
+    public Dentist updateDentistHandler(@RequestBody Dentist dentist) {
         return dentistService.updateDentist(dentist);
     }
 
     // DELETE MAPPING
     @DeleteMapping("/{id}")
-    public void deleteDentist(@PathVariable int id) {
+    public void deleteDentistHandler(@PathVariable int id) {
         dentistService.deleteDentist(id);
     }
 

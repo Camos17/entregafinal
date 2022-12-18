@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class DentistServiceImpl implements DentistService {
 
-    final static Logger logger = Logger.getLogger(DentistDaoImplH2.class);
+    final static Logger logger = Logger.getLogger(DentistServiceImpl.class);
 
     // CONSTANTES PARA CONEXION BD
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
