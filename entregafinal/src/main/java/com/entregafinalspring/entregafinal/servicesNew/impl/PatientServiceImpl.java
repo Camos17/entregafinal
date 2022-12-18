@@ -19,6 +19,7 @@ public class PatientServiceImpl implements PatientService {
 
     // CONSTANTES PARA CONEXION BD
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
+    
 //    private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic";
 
     private final static String DB_URL = "jdbc:h2:~/h2-database-dental-clinic;INIT=RUNSCRIPT FROM 'classpath:create.sql'";
