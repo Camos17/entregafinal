@@ -1,12 +1,15 @@
 package com.entregafinalspring.entregafinal.controller;
 
+import com.entregafinalspring.entregafinal.dto.PatientDTO;
 import com.entregafinalspring.entregafinal.entity.Patient;
 import com.entregafinalspring.entregafinal.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/patient") // Base URL
@@ -21,26 +24,30 @@ public class PatientController {
 
     // POST MAPPING
     @PostMapping()
-    public Patient savePatientHandler(@RequestBody Patient patient) throws SQLException {
-        return patientService.savePatient(patient);
+    public ResponseEntity<PatientDTO> savePatientHandler(@RequestBody Patient patient) throws SQLException {
+        PatientDTO patientDTO = patientService.savePatient(patient).orElse(null);
+        return ResponseEntity.ok(patientDTO);
     }
 
     // GET MAPPING
     @GetMapping()
-    public Patient searchPatientHandler(@RequestParam Integer id) throws SQLException {
-        return patientService.searchPatient(id);
+    public ResponseEntity<PatientDTO> searchPatientHandler(@RequestParam Integer id) throws SQLException {
+        PatientDTO patientDTO = patientService.searchPatient(id).orElse(null);
+        return ResponseEntity.ok(patientDTO);
     }
 
     // GET ALL
     @GetMapping("/list")
-    public List<Patient> searchAllPatientsHandler() {
-        return patientService.searchAllPatients();
+    public List<Optional<PatientDTO>> searchAllPatientsHandler() {
+        List<Optional<PatientDTO>> patientDTOList = patientService.searchAllPatients();
+        return patientDTOList;
     }
 
     // PUT MAPPING
     @PutMapping()
-    public Patient updatePatientHandler(@RequestBody Patient patient) {
-        return patientService.updatePatient(patient);
+    public ResponseEntity<PatientDTO> updatePatientHandler(@RequestBody Patient patient) {
+        PatientDTO patientDTO = patientService.updatePatient(patient).orElse(null);
+        return ResponseEntity.ok(patientDTO);
     }
 
     // DELETE MAPPING
