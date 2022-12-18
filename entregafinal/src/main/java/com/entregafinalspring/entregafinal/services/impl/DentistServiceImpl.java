@@ -43,25 +43,20 @@ public class DentistServiceImpl implements DentistService {
     private final static String DELETE_DENTIST = "DELETE FROM DENTISTS WHERE id = ?";
 
     @Override
-    public Dentist createDentist(Dentist dentist) throws SQLException {
+    public Optional<DentistDTO> createDentist(Dentist dentist) throws SQLException {
         logger.debug("Guardando un nuevo odontologo -1");
         Connection connection = null;
         DriverManager driverManager = null;
-        PreparedStatement psCreate;
         PreparedStatement psInsert;
+        Optional<DentistDTO> dentistDTO = null;
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
             connection = driverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            // Ya no es necesaria al ejecutar desde la conexión DB_URL con create.sql
-//            psCreate = connection.prepareStatement(CREATE_DENTIST);
-//            psCreate.execute();
-
             connection.setAutoCommit(false);
 
             psInsert = connection.prepareStatement(INSERT_DENTIST_DATA);
-//            psInsert.setInt(1, dentist.getId()); // Este ya no debe ir porque el id del insert esta auto incremental
             psInsert.setString(1, dentist.getName());
             psInsert.setString(2, dentist.getLastname());
             psInsert.setString(3, dentist.getRegistration());
@@ -70,6 +65,12 @@ public class DentistServiceImpl implements DentistService {
             connection.commit();
             connection.setAutoCommit(true);
 
+            // El objeto con el metodo para mapear
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // El objeto contenedor que va a tener el resultado del mapeo y le mapeo ya realizado
+            dentistDTO = Optional.of(objectMapper.convertValue(dentist, DentistDTO.class));
+
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -77,7 +78,7 @@ public class DentistServiceImpl implements DentistService {
         } finally {
             connection.close();
         }
-        return dentist;
+        return dentistDTO;
     }
 
     @Override
@@ -123,10 +124,12 @@ public class DentistServiceImpl implements DentistService {
     }
 
     @Override
-    public List<Dentist> searchAllDentist() {
+    public List<Optional<DentistDTO>> searchAllDentist() {
         Connection connection = null;
         PreparedStatement ps = null;
         List<Dentist> dentists = new ArrayList<>();
+        Optional<DentistDTO> dentistDTO = null;
+        List<Optional<DentistDTO>> dentistDTOList = new ArrayList<>();
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -142,21 +145,29 @@ public class DentistServiceImpl implements DentistService {
                 String dentistLastname = result.getString("lastname");
                 String registration = result.getString("registration");
 
+                // Objeto con el metodo para mapear
+                ObjectMapper objectMapper = new ObjectMapper();
+
                 Dentist dentist = new Dentist(dentistId, dentistName, dentistLastname, registration);
                 dentists.add(dentist);
+
+                // El objeto contenedor que va a tener el resultado del mapeo y el mapeo ya realizado
+                dentistDTO = Optional.of(objectMapper.convertValue(dentist, DentistDTO.class));
+                dentistDTOList.add(dentistDTO);
             }
             ps.close();
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException |
                  NoSuchMethodException | SQLException e) {
             throw new RuntimeException(e);
         }
-        return dentists;
+        return dentistDTOList;
     }
 
     @Override
-    public Dentist updateDentist(Dentist dentist) {
+    public Optional<DentistDTO> updateDentist(Dentist dentist) {
         Connection connection = null;
         PreparedStatement ps = null;
+        Optional<DentistDTO> dentistDTO = null;
 
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
@@ -170,11 +181,18 @@ public class DentistServiceImpl implements DentistService {
 
             ps.executeUpdate();
             ps.close();
+
+            // Objeto con el metodo para mapear
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // El objeto contenedor que va a tener el resultado del mapeo y el mapeo ya realizado
+            dentistDTO = Optional.of(objectMapper.convertValue(dentist, DentistDTO.class));
+
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException |
                  ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
-        return dentist;
+        return dentistDTO;
     }
 
     @Override
