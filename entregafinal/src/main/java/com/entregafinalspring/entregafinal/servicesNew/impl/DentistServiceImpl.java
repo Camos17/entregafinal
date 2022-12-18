@@ -48,7 +48,6 @@ public class DentistServiceImpl implements DentistService {
         PreparedStatement psCreate;
         PreparedStatement psInsert;
 
-
         try {
             Class.forName(DB_JDBC_DRIVER).getDeclaredConstructor().newInstance();
             connection = driverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -56,7 +55,6 @@ public class DentistServiceImpl implements DentistService {
             // Ya no es necesaria al ejecutar desde la conexión DB_URL con create.sql
 //            psCreate = connection.prepareStatement(CREATE_DENTIST);
 //            psCreate.execute();
-
 
             connection.setAutoCommit(false);
 
