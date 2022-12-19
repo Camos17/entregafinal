@@ -24,14 +24,15 @@ public class DentistController {
 
     // POST MAPPING
     //@RequestMapping(value = "/crear", method = RequestMethod.POST) // Esto seria sin usar Spring
-    @PostMapping() // Es una abreviacion de Spring
+    @PostMapping("/new") // Es una abreviacion de Spring
     public ResponseEntity<DentistDTO> createDentistHandler(@RequestBody Dentist dentist) throws SQLException {
         DentistDTO dentistDTO = dentistService.createDentist(dentist).orElse(null);
         return ResponseEntity.ok(dentistDTO);
     }
 
     // GET MAPPING
-    @GetMapping()
+//    @GetMapping("/{id}}") Usando @PathVariable
+    @GetMapping("/search")
     public ResponseEntity<DentistDTO> searchDentistHandler(@RequestParam int id) {
         // .orElse de libreria Optional
         DentistDTO dentistDTO = dentistService.searchDentist(id).orElse(null);
