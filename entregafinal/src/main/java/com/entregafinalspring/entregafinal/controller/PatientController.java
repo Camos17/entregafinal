@@ -29,8 +29,8 @@ public class PatientController {
         return ResponseEntity.ok(patientDTO);
     }
 
-    // GET MAPPING
-    //    @GetMapping("/{id}}") Usando @PathVariable
+//    // GET MAPPING
+//    //    @GetMapping("/{id}}") Usando @PathVariable
     @GetMapping("/search")
     public ResponseEntity<PatientDTO> searchPatientHandler(@RequestParam Integer id) throws SQLException {
         PatientDTO patientDTO = patientService.searchPatient(id).orElse(null);
@@ -39,9 +39,9 @@ public class PatientController {
 
     // GET ALL
     @GetMapping("/list")
-    public List<Optional<PatientDTO>> searchAllPatientsHandler() {
+    public ResponseEntity<List<Optional<PatientDTO>>> searchAllPatientsHandler() {
         List<Optional<PatientDTO>> patientDTOList = patientService.searchAllPatients();
-        return patientDTOList;
+        return ResponseEntity.ok(patientDTOList);
     }
 
     // PUT MAPPING
