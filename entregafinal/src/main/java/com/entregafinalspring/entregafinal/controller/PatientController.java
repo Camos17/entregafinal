@@ -23,14 +23,15 @@ public class PatientController {
     }
 
     // POST MAPPING
-    @PostMapping()
+    @PostMapping("/new")
     public ResponseEntity<PatientDTO> savePatientHandler(@RequestBody Patient patient) throws SQLException {
         PatientDTO patientDTO = patientService.savePatient(patient).orElse(null);
         return ResponseEntity.ok(patientDTO);
     }
 
     // GET MAPPING
-    @GetMapping()
+    //    @GetMapping("/{id}}") Usando @PathVariable
+    @GetMapping("/search")
     public ResponseEntity<PatientDTO> searchPatientHandler(@RequestParam Integer id) throws SQLException {
         PatientDTO patientDTO = patientService.searchPatient(id).orElse(null);
         return ResponseEntity.ok(patientDTO);
